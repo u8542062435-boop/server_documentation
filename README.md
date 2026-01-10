@@ -30,5 +30,5 @@ nameserver 8.8.8.8<br>
 search lab14.lan<br>
 
 ### Hacemos inmutable al archivo /etc/resolv.conf para que no pueda cambiar<br>
-sudo chattr +i /etc/resolv.conf
-![Netplan](images/1.netplan.jpg)
+sudo chattr +i /etc/resolv.conf<br>
+![Netplan](Images/1.netplan.jpg)
