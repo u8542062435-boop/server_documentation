@@ -33,9 +33,17 @@ search lab14.lan<br>
 sudo chattr +i /etc/resolv.conf<br>
 
 <p align="center">
-  <img src="Images/1.netplan.jpg" width="600">
+  <img src="Images/1.netplan.jpg" width="400">
 </p>
 
 <p align="center">
   <em>Netplan_Server</em>
+</p>
+<br>
+<p align="center">
+  <img src="Images/2.etc_hosts.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>etc_hosts</em>
 </p>
