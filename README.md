@@ -6,8 +6,8 @@
 `sudo hostnamectl set-hostname ls14
 `
 ### Modificar fichero hosts <br>
-<br>`sudo nano /etc/hosts
-`172.30.20.55 ls14.lab14.lan ls14
+`sudo nano /etc/hosts
+<br>`172.30.20.55 ls14.lab14.lan ls14
 
 ### Verificar el FQDN<br>
 hostname -f
