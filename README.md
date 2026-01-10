@@ -10,7 +10,7 @@
 `<br>172.30.20.55 ls14.lab14.lan ls14
 
 ### Verificar el FQDN<br>
-hostname -f
+`hostname -f`
 
 ### Verificar si el FQDN es capaz de resolver la dirección Ip del Samba<br>
 ping -c2 ls14.lab14.lan
