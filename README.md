@@ -2,7 +2,7 @@
 ###En el primer dia de trabajo estoy instalando Ubuntu Server, para ello enumerare los comandos utilizados.
 ##CONFIGURACIÓN SERVIDOR
 
-###Cambiar hostname
+###Cambiar hostname<br>
 sudo hostnamectl set-hostname ls14
 
 ###Modificar fichero hosts
