@@ -32,7 +32,4 @@ search lab14.lan<br>
 ### Hacemos inmutable al archivo /etc/resolv.conf para que no pueda cambiar<br>
 sudo chattr +i /etc/resolv.conf<br>
 
-<div align="center">
-  ![Netplan](https://github.com/u8542062435-boop/server_documentation/blob/main/Images/1.netplan.jpg)
-  <p>Netplan_Server</p>
-</div>
+![Netplan](https://raw.githubusercontent.com/u8542062435-boop/server_documentation/main/Images/1.netplan.jpg)
