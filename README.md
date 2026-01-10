@@ -3,7 +3,7 @@
 ## CONFIGURACIÓN SERVIDOR
 
 ### Cambiar hostname<br>
-sudo hostnamectl set-hostname ls14
+'sudo hostnamectl set-hostname ls14
 
 ### Modificar fichero hosts<br>
 sudo nano /etc/hosts<br>
