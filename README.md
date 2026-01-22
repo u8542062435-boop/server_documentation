@@ -55,8 +55,8 @@ Actualizar el índice de paquetes<br>
 Instalar samba con sus paquetes y dependencias<br>
 `sudo apt install -y acl attr samba samba-dsdb-modules samba-vfs-modules smbclient winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user dnsutils chrony net-tools`
 
-LAB14.LAN
-ls14.lab14.lan
+LAB14.LAN<br>
+ls14.lab14.lan<br>
 ls14.lab14.lan
 
 Detener y deshabilitar los servicios que el servidor de Active Directory de Samba no requiere (smbd, nmbd y winbind)<br>
