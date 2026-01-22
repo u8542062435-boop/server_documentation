@@ -47,3 +47,35 @@ search lab14.lan<br>
 <p align="center">
   <em>etc_hosts</em>
 </p>
+## INSTALACIÓN SAMBA
+
+Actualizar el índice de paquetes<br>
+`sudo apt update`
+
+Instalar samba con sus paquetes y dependencias<br>
+`sudo apt install -y acl attr samba samba-dsdb-modules samba-vfs-modules smbclient winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user dnsutils chrony net-tools`
+
+LAB14.LAN
+ls14.lab14.lan
+ls14.lab14.lan
+
+Detener y deshabilitar los servicios que el servidor de Active Directory de Samba no requiere (smbd, nmbd y winbind)<br>
+`sudo systemctl disable --now smbd nmbd winbind`
+
+El servidor solo necesita samba-ac-dc para funcionar como Active Directory y controlador de dominio.<br>
+`sudo systemctl unmask samba-ad-dc`<br>
+`sudo systemctl enable samba-ad-dc`
+
+## CONFIGURACIÓN SAMBA ACTIVE DIRECTORY
+
+Crear una copia de seguridad del archivo /etc/samba/smb.conf<br>
+`sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.orig`
+
+Ejecutar el comando samba-tool para comenzar a aprovisionar Samba Active Directory.<br>
+`sudo samba-tool domain provision`
+
+Realm: CLOCKWORK.LOCAL<br>
+Domain: CLOCKWORK<br>
+Server Role: dc<br>
+DNS backend: SAMBA_INTERNAL<br>
+DNS forwarder IP address: 8.8.8.8<br>
