@@ -97,7 +97,7 @@ Samba Active Directory depende del protocolo Kerberos, y el protocolo Kerberos r
 Los beneficios de la sincronización de tiempo de AD incluyen la prevención de ataques de repetición y la resolución de conflictos de replicación de AD.
 
 Cambiar el permiso y la propiedad predeterminados del directorio /var/lib/samba/ntp_signd/ntp_signed. El usuario/grupo chrony debe tener permiso de lectura en el directorio ntp_signed.<br>
-`sudo chown root:_chrony /var/lib/samba/ntp_signd/`
+`sudo chown root:_chrony /var/lib/samba/ntp_signd/`<br>
 `sudo chmod 750 /var/lib/samba/ntp_signd/`
 
 Modificar el archivo de configuración /etc/chrony/chrony.conf para habilitar el servidor NTP de chrony y apuntar a la ubicación del socket NTP a /var/lib/samba/ntp_signd.<br>
@@ -114,11 +114,11 @@ Reiniciar y verificar el servicio chronyd en el servidor Samba AD.<br>
 VERIFICAR SAMBA ACTIVE DIRECTORY<br>
 
 Verificar nombres de dominio<br>
-`host -t A ls14.lab14.lan`
+`host -t A ls14.lab14.lan`<br>
 `host -t A ls14.lab14.lan`
 
 Verificar que los registros de servicio kerberos y ldap apunten al FQDN de su servidor Samba Active Directory.<br>
-`host -t SRV _kerberos._udp.lab14.lan`
+`host -t SRV _kerberos._udp.lab14.lan`<br>
 `host -t SRV _ldap._tcp.lab14.lan`
 
 Verificar los recursos predeterminados disponibles en Samba Active Directory.<br>
