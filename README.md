@@ -301,28 +301,26 @@ hosts:        files dns
 `wbinfo -u`
 `wbinfo -g`
 
-
 ### Verify the Winbind NSS module using the getent command<br>
 `sudo getent passwd | grep administrator`
 `sudo getent group | grep 'domain admins'`
 `id administrator`
 
-Configure pam-auth-update to authenticate with domain accounts and automatically create home directories<br>
+### Configure pam-auth-update to authenticate with domain accounts and automatically create home directories<br>
 `sudo pam-auth-update`
 
-Edit the /etc/pam.d/common-account file to automatically create home directories<br>
+### Edit the /etc/pam.d/common-account file to automatically create home directories<br>
 `nano /etc/pam.d/common-account`
 
-
-Add the following at the end of the file:<br>
+### Add the following at the end of the file:<br>
 
 session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
-Authenticate with a Samba4 AD account<br>
+### Authenticate with a Samba4 AD account<br>
 su administrator
 
-Add domain account with root privileges<br>
+### Add domain account with root privileges<br>
 sudo usermod -aG sudo administrator
 
-Authenticate via GUI<br>
+### Authenticate via GUI<br>
 administrator@lab14.lan
