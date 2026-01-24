@@ -47,31 +47,32 @@ search lab14.lan<br>
 <p align="center">
   <em>etc_hosts</em>
 </p>
+
 ## SAMBA INSTALL
 
-Update the package index<br>
+### Update the package index<br>
 `sudo apt update`
 
-Install Samba with its packages and dependencies<br>
+### Install Samba with its packages and dependencies<br>
 `sudo apt install -y acl attr samba samba-dsdb-modules samba-vfs-modules smbclient winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user dnsutils chrony net-tools`
 
 LAB14.LAN<br>
 ls14.lab14.lan<br>
 ls14.lab14.lan
 
-Stop and disable the services that the Samba Active Directory server does not require  (smbd, nmbd y winbind)<br>
+### Stop and disable the services that the Samba Active Directory server does not require  (smbd, nmbd y winbind)<br>
 `sudo systemctl disable --now smbd nmbd winbind`
 
-The server only needs samba-ac-dc to function as an Active Directory and controller domain.<br>
+### The server only needs samba-ac-dc to function as an Active Directory and controller domain.<br>
 `sudo systemctl unmask samba-ad-dc`<br>
 `sudo systemctl enable samba-ad-dc`
 
 ## SAMBA ACTIVE DIRECTORY CONFIGURATION
 
-Create a backup of /etc/samba/smb.conf<br>
+### Create a backup of /etc/samba/smb.conf<br>
 `sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.orig`
 
-Run the samba-tool command to begin provisioning Samba Active Directory.<br>
+### Run the samba-tool command to begin provisioning Samba Active Directory.<br>
 `sudo samba-tool domain provision`
 
 Realm: LAB14.LAN<br>
@@ -80,27 +81,27 @@ Server Role: dc<br>
 DNS backend: SAMBA_INTERNAL<br>
 DNS forwarder IP address: 8.8.8.8<br>
 
-Create a backup of the default Kerberos configuration.<br>
+### Create a backup of the default Kerberos configuration.<br>
 `sudo mv /etc/krb5.conf /etc/krb5.conf.orig`
 
-Replace with the file /var/lib/samba/private/krb5.conf.<br>
+### Replace with the file /var/lib/samba/private/krb5.conf.<br>
 `sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf`
 
-Start Samba Active Directory service samba-ad-dc<br>
+### Start Samba Active Directory service samba-ad-dc<br>
 `sudo systemctl start samba-ad-dc`
 
-Test service<br>
+### Test service<br>
 `sudo systemctl status samba-ad-dc`
 
-SETTING TIME SYNCHRONIZATION<br>
+### SETTING TIME SYNCHRONIZATION<br>
 Samba Active Directory relies on the Kerberos protocol, and Kerberos requires that the times of the AD server and the workstation be synchronized. To ensure proper time synchronization, we must also configure a Network Time Protocol (NTP) server in Samba.
 The benefits of AD time synchronization include preventing replay attacks and resolving AD replication conflicts.
 
-Change the default permissions and ownership of the /var/lib/samba/ntp_signd/ntp_signed. The chrony user/group must have read permissions in the ntp_signed.<br>
+### Change the default permissions and ownership of the /var/lib/samba/ntp_signd/ntp_signed. The chrony user/group must have read permissions in the ntp_signed.<br>
 `sudo chown root:_chrony /var/lib/samba/ntp_signd/`<br>
 `sudo chmod 750 /var/lib/samba/ntp_signd/`
 
-Modify the /etc/chrony/chrony.conf configuration file to enable the chrony NTP server and point the NTP socket location to /var/lib/samba/ntp_signd.<br>
+### Modify the /etc/chrony/chrony.conf configuration file to enable the chrony NTP server and point the NTP socket location to /var/lib/samba/ntp_signd.<br>
 `sudo nano /etc/chrony/chrony.conf`
 
 bindcmdaddress 172.30.20.55<br>
