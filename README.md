@@ -195,7 +195,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 ### Remove a member from a group<br>
 `samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>`
 
-[https://github.com/u8542062435-boop/Make-your-Ubuntu-Server-a-functional-router/blob/5195f2cc22a257f94a8929f7d480d1bb3a3a09fc/README.md](https://github.com)
+[https://github.com/u8542062435-boop/Make-your-Ubuntu-Server-a-functional-router](https://github.com)
 
 
 ## UBUNTU CLIENT CONFIGURATION
