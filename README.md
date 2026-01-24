@@ -174,32 +174,32 @@ Remove a member from a group<br>
 ## UBUNTU CLIENT CONFIGURATION
 
 Change hostname<br>
-`sudo hostnamectl set-hostname ud101`
+`sudo hostnamectl set-hostname LSC14`
 hostname -f
 
 Configure the /etc/hosts file<br>
 `sudo nano /etc/hosts`
 
-192.168.1.8     clockwork.local clockwork
-192.168.1.8     dc.clockwork.local dc
+192.168.1.8     lab14.lan lab14
+192.168.1.8     ls14.lab14.lan ls14
 
 Check connectivity<br>
-`ping -c2 clockwork.local`
+`ping -c2 lab14.lan`
 
 Install NTPDATE<br>
 `sudo apt-get install ntpdate`
-`sudo ntpdate -q clockwork.local`
-`sudo ntpdate clockwork.local`
+`sudo ntpdate -q lab14.lan`
+`sudo ntpdate lab14.lan`
 
 Install required packages<br>
 `sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind`
 
-CLOCKWORK.LOCAL<br>
-dc.clockwork.local
-dc.clockwork.local
+LAB14.LAN
+ls14.lab14.lan
+ls14.lab14.lan
 
 Verify authentication on the Kerberos server using the user administrator<br>
-`kinit administrator@CLOCKWORK.LOCAL`
+`kinit administrator@LAB14.LAN`
 `klist`
 
 Move smb.conf file and create a backup<br>
@@ -209,11 +209,11 @@ Create an empty smb.conf file<br>
 `nano /etc/samba/smb.conf`
 
 [global]
-        workgroup = CLOCKWORK
-        realm = CLOCKWORK.LOCAL
-        netbios name = ud101
+        workgroup = LAB14
+        realm = LAB14.LAN
+        netbios name = LSC14
         security = ADS
-        dns forwarder = 192.168.1.8
+        dns forwarder = 172.30.20.55
 
 idmap config * : backend = tdb
 idmap config *:range = 50000-1000000
@@ -284,4 +284,4 @@ Add domain account with root privileges<br>
 sudo usermod -aG sudo administrator
 
 Authenticate via GUI<br>
-administrator@clockwork.local
+administrator@lab14.lan
