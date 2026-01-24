@@ -319,6 +319,14 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 ### Authenticate with a Samba4 AD account<br>
 `su administrator`
 
+<p align="center">
+  <img src="Images/3.administrator.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>su_administrator</em>
+</p>
+
 ### Add domain account with root privileges<br>
 `sudo usermod -aG sudo administrator`
 
