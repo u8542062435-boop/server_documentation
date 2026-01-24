@@ -316,6 +316,14 @@ hosts:        files dns
 
 session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
+<p align="center">
+  <img src="Images/4.etc_pam.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>common_account</em>
+</p>
+
 ### Authenticate with a Samba4 AD account<br>
 `su administrator`
 
