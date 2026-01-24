@@ -323,4 +323,4 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 `sudo usermod -aG sudo administrator`
 
 ### Authenticate via GUI<br>
-administrator&#64;lab14.lan
+`administrator@lab14.lan`
