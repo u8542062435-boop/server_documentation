@@ -93,7 +93,7 @@ DNS forwarder IP address: 8.8.8.8<br>
 ### Test service<br>
 `sudo systemctl status samba-ad-dc`
 
-### SETTING TIME SYNCHRONIZATION<br>
+## SETTING TIME SYNCHRONIZATION<br>
 
 Samba Active Directory relies on the Kerberos protocol, and Kerberos requires
 that the times of the AD server and the workstation be synchronized.
@@ -112,105 +112,133 @@ bindcmdaddress 172.30.20.55<br>
 allow 172.30.20.0/24<br>
 ntpsigndsocket /var/lib/samba/ntp_signd
 
-Restart and verify the chronyd service on the Samba AD server.<br>
+
+### Restart and verify the chronyd service on the Samba AD server.<br>
 `sudo systemctl restart chronyd`
 `sudo systemctl status chronyd`
 
-VERIFY SAMBA ACTIVE DIRECTORY<br>
 
-Verify domain names<br>
+## VERIFY SAMBA ACTIVE DIRECTORY<br>
+
+
+### Verify domain names<br>
 `host -t A ls14.lab14.lan`<br>
 `host -t A ls14.lab14.lan`<br>
 
-Verify that the Kerberos and LDAP service records point to the FQDN of your Samba Active Directory server<br>
+
+### Verify that the Kerberos and LDAP service records point to the FQDN of your Samba Active Directory server<br>
 `host -t SRV _kerberos._udp.lab14.lan`<br>
 `host -t SRV _ldap._tcp.lab14.lan`
 
-Verify the default resources available in Samba Active Directory.<br>
+
+### Verify the default resources available in Samba Active Directory.<br>
 `smbclient -L lab14.lan -N`
 
-Verify authentication on the Kerberos server using the user manager<br>
+
+### Verify authentication on the Kerberos server using the user manager<br>
 `kinit administrator@LAB14.LAN`
 `klist`
 
-Log in to the server via SMB<br>
+
+### Log in to the server via SMB<br>
 `sudo smbclient //localhost/netlogon -U 'administrator'`
 
-Change the administrator user password<br>
+
+### Change the administrator user password<br>
 `sudo samba-tool user setpassword administrator`
 
-Verify the integrity of the Samba configuration file.<br>
+
+### Verify the integrity of the Samba configuration file.<br>
 `testparm`
 
-Verify the operation of Windows Active Directory Domain Controller 2008<br>
+
+### Verify the operation of Windows Active Directory Domain Controller 2008<br>
 `sudo samba-tool domain level show`
 
-Create user SAMBA AD<br>
+
+### Create user SAMBA AD<br>
 `sudo samba-tool user create George`
 
-List SAMBA AD users<br>
+
+### List SAMBA AD users<br>
 `sudo samba-tool user list`
 
-Delete a user<br>
+
+### Delete a user<br>
 `samba-tool user delete <nombre_del_usuario>`
 
-List SAMBA AD computers<br>
+
+### List SAMBA AD computers<br>
 `sudo samba-tool computer list`
 
-Delete SAMBA AD computer<br>
+
+### Delete SAMBA AD computer<br>
 `sudo samba-tool computer delete <nombre_del_equipo>`
 
-Create a group<br>
+
+### Create a group<br>
 `samba-tool group add <nombre_del_grupo>`
 
-List groups<br>
+
+### List groups<br>
 `samba-tool group list`
 
-List group members<br>
+
+### List group members<br>
 `samba-tool group listmembers 'Domain Admins'`
 
-Add a member to a group<br>
+
+### Add a member to a group<br>
 `samba-tool group addmembers <nombre_del_grupo> <nombre_del_usuario>`
 
-Remove a member from a group<br>
+
+### Remove a member from a group<br>
 `samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>`
 
 
 ## UBUNTU CLIENT CONFIGURATION
 
-Change hostname<br>
-`sudo hostnamectl set-hostname LSC14`
-hostname -f
 
-Configure the /etc/hosts file<br>
+### Change hostname<br>
+`sudo hostnamectl set-hostname LSC14`
+`hostname -f`
+
+
+### Configure the /etc/hosts file<br>
 `sudo nano /etc/hosts`
 
 192.168.1.8     lab14.lan lab14
 192.168.1.8     ls14.lab14.lan ls14
 
-Check connectivity<br>
+
+### Check connectivity<br>
 `ping -c2 lab14.lan`
 
-Install NTPDATE<br>
+
+### Install NTPDATE<br>
 `sudo apt-get install ntpdate`
 `sudo ntpdate -q lab14.lan`
 `sudo ntpdate lab14.lan`
 
-Install required packages<br>
+
+### Install required packages<br>
 `sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind`
 
 LAB14.LAN
 ls14.lab14.lan
 ls14.lab14.lan
 
-Verify authentication on the Kerberos server using the user administrator<br>
+
+### Verify authentication on the Kerberos server using the user administrator<br>
 `kinit administrator@LAB14.LAN`
 `klist`
 
-Move smb.conf file and create a backup<br>
+
+### Move smb.conf file and create a backup<br>
 `mv /etc/samba/smb.conf /etc/samba/smb.conf.initial`
 
-Create an empty smb.conf file<br>
+
+### Create an empty smb.conf file<br>
 `nano /etc/samba/smb.conf`
 
 [global]
@@ -235,23 +263,30 @@ idmap config *:range = 50000-1000000
   map acl inherit = Yes
   store dos attributes = Yes
 
-Restart all Samba daemons<br>
+
+### Restart all Samba daemons<br>
 `sudo systemctl restart smbd nmbd`
 
-Stop unnecessary services<br>
+
+### Stop unnecessary services<br>
 `sudo systemctl stop samba-ad-dc`
 
-Enable Samba services<br>
+
+### Enable Samba services<br>
 `sudo systemctl enable smbd nmbd`
 
-Join Ubuntu Desktop to SAMBA AD DC<br>
+
+### Join Ubuntu Desktop to SAMBA AD DC<br>
 `sudo net ads join -U administrator`
 
-List SAMBA AD computers<br>
+
+### List SAMBA AD computers<br>
 `sudo samba-tool computer list`
 
-CONFIGURE AD ACCOUNT AUTHENTICATION<br>
-Edit the Name Service Switch (NSS) configuration file<br>
+
+## CONFIGURE AD ACCOUNT AUTHENTICATION<br>
+
+### Edit the Name Service Switch (NSS) configuration file<br>
 `sudo nano /etc/nsswitch.conf`
 
 passwd:       compat winbind
@@ -259,14 +294,15 @@ group:        compat winbind
 shadow:       compat winbind
 hosts:        files dns
 
-Restart the Winbind service<br>
+### Restart the Winbind service<br>
 `sudo systemctl restart winbind`
 
-Check if Ubuntu Desktop was integrated into the domain<br>
+### Check if Ubuntu Desktop was integrated into the domain<br>
 `wbinfo -u`
 `wbinfo -g`
 
-Verify the Winbind NSS module using the getent command<br>
+
+### Verify the Winbind NSS module using the getent command<br>
 `sudo getent passwd | grep administrator`
 `sudo getent group | grep 'domain admins'`
 `id administrator`
