@@ -1,10 +1,10 @@
-# server_documentation
-### On my first day of work, I'm installing Ubuntu Server. I'll list the commands I used.<br>
-## CONFIGURACIÓN SERVIDOR
+
+
+## SERVER CONFIGURATION
 
 ### Change hostname<br>
-`sudo hostnamectl set-hostname ls14
-`
+`sudo hostnamectl set-hostname ls14`
+
 ### Modify file hosts <br>
 `sudo nano /etc/hosts
 `<br>172.30.20.55 ls14.lab14.lan ls14
@@ -169,3 +169,119 @@ Add a member to a group<br>
 
 Remove a member from a group<br>
 `samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>`
+
+
+## UBUNTU CLIENT CONFIGURATION
+
+Change hostname<br>
+`sudo hostnamectl set-hostname ud101`
+hostname -f
+
+Configure the /etc/hosts file<br>
+`sudo nano /etc/hosts`
+
+192.168.1.8     clockwork.local clockwork
+192.168.1.8     dc.clockwork.local dc
+
+Check connectivity<br>
+`ping -c2 clockwork.local`
+
+Install NTPDATE<br>
+`sudo apt-get install ntpdate`
+`sudo ntpdate -q clockwork.local`
+`sudo ntpdate clockwork.local`
+
+Install required packages<br>
+`sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind`
+
+CLOCKWORK.LOCAL<br>
+dc.clockwork.local
+dc.clockwork.local
+
+Verify authentication on the Kerberos server using the user administrator<br>
+`kinit administrator@CLOCKWORK.LOCAL`
+`klist`
+
+Move smb.conf file and create a backup<br>
+`mv /etc/samba/smb.conf /etc/samba/smb.conf.initial`
+
+Create an empty smb.conf file<br>
+`nano /etc/samba/smb.conf`
+
+[global]
+        workgroup = CLOCKWORK
+        realm = CLOCKWORK.LOCAL
+        netbios name = ud101
+        security = ADS
+        dns forwarder = 192.168.1.8
+
+idmap config * : backend = tdb
+idmap config *:range = 50000-1000000
+
+   template homedir = /home/%D/%U
+   template shell = /bin/bash
+   winbind use default domain = true
+   winbind offline logon = false
+   winbind nss info = rfc2307
+   winbind enum users = yes
+   winbind enum groups = yes
+
+  vfs objects = acl_xattr
+  map acl inherit = Yes
+  store dos attributes = Yes
+
+Restart all Samba daemons<br>
+`sudo systemctl restart smbd nmbd`
+
+Stop unnecessary services<br>
+`sudo systemctl stop samba-ad-dc`
+
+Enable Samba services<br>
+`sudo systemctl enable smbd nmbd`
+
+Join Ubuntu Desktop to SAMBA AD DC<br>
+`sudo net ads join -U administrator`
+
+List SAMBA AD computers<br>
+`sudo samba-tool computer list`
+
+CONFIGURE AD ACCOUNT AUTHENTICATION<br>
+Edit the Name Service Switch (NSS) configuration file<br>
+`sudo nano /etc/nsswitch.conf`
+
+passwd:       compat winbind
+group:        compat winbind
+shadow:       compat winbind
+hosts:        files dns
+
+Restart the Winbind service<br>
+`sudo systemctl restart winbind`
+
+Check if Ubuntu Desktop was integrated into the domain<br>
+`wbinfo -u`
+`wbinfo -g`
+
+Verify the Winbind NSS module using the getent command<br>
+`sudo getent passwd | grep administrator`
+`sudo getent group | grep 'domain admins'`
+`id administrator`
+
+Configure pam-auth-update to authenticate with domain accounts and automatically create home directories<br>
+`sudo pam-auth-update`
+
+Edit the /etc/pam.d/common-account file to automatically create home directories<br>
+`nano /etc/pam.d/common-account`
+
+
+Add the following at the end of the file:<br>
+
+session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
+
+Authenticate with a Samba4 AD account<br>
+su administrator
+
+Add domain account with root privileges<br>
+sudo usermod -aG sudo administrator
+
+Authenticate via GUI<br>
+administrator@clockwork.local
