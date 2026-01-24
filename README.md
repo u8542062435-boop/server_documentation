@@ -317,10 +317,10 @@ hosts:        files dns
 session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 ### Authenticate with a Samba4 AD account<br>
-su administrator
+`su administrator`
 
 ### Add domain account with root privileges<br>
-sudo usermod -aG sudo administrator
+`sudo usermod -aG sudo administrator`
 
 ### Authenticate via GUI<br>
-administrator@lab14.lan
+administrator&#64;lab14.lan
