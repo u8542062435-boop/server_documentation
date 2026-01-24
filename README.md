@@ -94,10 +94,12 @@ DNS forwarder IP address: 8.8.8.8<br>
 `sudo systemctl status samba-ad-dc`
 
 ### SETTING TIME SYNCHRONIZATION<br>
-<div style="text-align: justify;">
-  Samba Active Directory relies on the Kerberos protocol, and Kerberos requires that the times of the AD server and the workstation be synchronized. To ensure proper time synchronization, we must also configure a Network Time Protocol (NTP) server in Samba.
-The benefits of AD time synchronization include preventing replay attacks and resolving AD replication conflicts.
-</div>
+
+Samba Active Directory relies on the Kerberos protocol, and Kerberos requires
+that the times of the AD server and the workstation be synchronized.
+
+To ensure proper time synchronization, we must also configure a network Time
+Protocol (NTP) server in Samba.
 
 ### Change the default permissions and ownership of the /var/lib/samba/ntp_signd/ntp_signed. The chrony user/group must have read permissions in the ntp_signed.<br>
 `sudo chown root:_chrony /var/lib/samba/ntp_signd/`<br>
