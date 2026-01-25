@@ -321,6 +321,14 @@ group:        compat winbind<br>
 shadow:       compat winbind<br>
 hosts:        files dns<br>
 
+<p align="center">
+  <img src="Images/10.nsswitch.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>nsswitch_conf</em>
+</p>
+
 ### Restart the Winbind service<br>
 `sudo systemctl restart winbind`
 
