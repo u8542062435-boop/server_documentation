@@ -242,11 +242,11 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Install required packages<br>
-`sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind`
+`sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind`<br>
 
-LAB14.LAN
-ls14.lab14.lan
-ls14.lab14.lan
+LAB14.LAN<br>
+ls14.lab14.lan<br>
+ls14.lab14.lan<br>
 
 
 ### Verify authentication on the Kerberos server using the user administrator<br>
@@ -316,22 +316,22 @@ idmap config *:range = 50000-1000000<br>
 ### Edit the Name Service Switch (NSS) configuration file<br>
 `sudo nano /etc/nsswitch.conf`
 
-passwd:       compat winbind
-group:        compat winbind
-shadow:       compat winbind
-hosts:        files dns
+passwd:       compat winbind<br>
+group:        compat winbind<br>
+shadow:       compat winbind<br>
+hosts:        files dns<br>
 
 ### Restart the Winbind service<br>
 `sudo systemctl restart winbind`
 
 ### Check if Ubuntu Desktop was integrated into the domain<br>
-`wbinfo -u`
-`wbinfo -g`
+`wbinfo -u`<br>
+`wbinfo -g`<br>
 
 ### Verify the Winbind NSS module using the getent command<br>
-`sudo getent passwd | grep administrator`
-`sudo getent group | grep 'domain admins'`
-`id administrator`
+`sudo getent passwd | grep administrator`<br>
+`sudo getent group | grep 'domain admins'`<br>
+`id administrator`<br>
 
 ### Configure pam-auth-update to authenticate with domain accounts and automatically create home directories<br>
 `sudo pam-auth-update`
