@@ -250,7 +250,7 @@ ls14.lab14.lan
 
 
 ### Verify authentication on the Kerberos server using the user administrator<br>
-`kinit administrator@LAB14.LAN`
+`kinit administrator@LAB14.LAN`<br>
 `klist`
 
 
@@ -281,8 +281,15 @@ idmap config *:range = 50000-1000000
 
   vfs objects = acl_xattr
   map acl inherit = Yes
-  store dos attributes = Yes
+  store dos attributes = Yes<br>
 
+<p align="center">
+  <img src="Images/9.smb_conf.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>smb_conf</em>
+</p>
 
 ### Restart all Samba daemons<br>
 `sudo systemctl restart smbd nmbd`
