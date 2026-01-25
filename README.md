@@ -119,11 +119,11 @@ Protocol (NTP) server in Samba.
 `sudo nano /etc/chrony/chrony.conf`
 
 <p align="center">
-  <img src="Images/5.chrony" width="500">
+  <img src="Images/5.chrony.jpg" width="500">
 </p>
 
 <p align="center">
-  <em>Conf_chrony</em>
+  <em>Samba_file</em>
 </p>
 
 bindcmdaddress 172.30.20.55<br>
