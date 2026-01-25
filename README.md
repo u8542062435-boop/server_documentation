@@ -228,7 +228,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Change hostname<br>
-`sudo hostnamectl set-hostname LSC14`
+`sudo hostnamectl set-hostname LSC14`<br>
 `hostname -f`
 
 
@@ -243,7 +243,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 </p>
 
 <p align="center">
-  <em>etc_hostsf</em>
+  <em>etc_hosts</em>
 </p>
 
 ### Check connectivity<br>
