@@ -140,7 +140,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Restart and verify the chronyd service on the Samba AD server.<br>
-`sudo systemctl restart chronyd`
+`sudo systemctl restart chronyd`<br>
 `sudo systemctl status chronyd`
 
 
@@ -235,9 +235,16 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 ### Configure the /etc/hosts file<br>
 `sudo nano /etc/hosts`
 
-192.168.1.8     lab14.lan lab14
-192.168.1.8     ls14.lab14.lan ls14
+172.30.20.55     lab14.lan lab14
+172.30.20.55     ls14.lab14.lan ls14
 
+<p align="center">
+  <img src="Images/11.hosts.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>etc_hostsf</em>
+</p>
 
 ### Check connectivity<br>
 `ping -c2 lab14.lan`
