@@ -127,7 +127,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 </p>
 
 <p align="center">
-  <em>Samba_file</em>
+  <em>Chrony</em>
 </p>
 
 
