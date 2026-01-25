@@ -93,7 +93,15 @@ DNS forwarder IP address: 8.8.8.8<br>
 `sudo systemctl start samba-ad-dc`
 
 ### Test service<br>
-`sudo systemctl status samba-ad-dc`
+`sudo systemctl status samba-ad-dc`<br>
+
+<p align="center">
+  <img src="Images/3.samba_status" width="500">
+</p>
+
+<p align="center">
+  <em>Samba_status</em>
+</p>
 
 ## SETTING TIME SYNCHRONIZATION<br>
 
