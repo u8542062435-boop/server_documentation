@@ -251,9 +251,9 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Install NTPDATE<br>
-`sudo apt-get install ntpdate`
-`sudo ntpdate -q lab14.lan`
-`sudo ntpdate lab14.lan`
+`sudo apt-get install ntpdate`<br>
+`sudo ntpdate -q lab14.lan`<br>
+`sudo ntpdate lab14.lan`<br>
 
 
 ### Install required packages<br>
