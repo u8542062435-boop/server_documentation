@@ -261,26 +261,26 @@ ls14.lab14.lan
 ### Create an empty smb.conf file<br>
 `nano /etc/samba/smb.conf`
 
-[global]
-        workgroup = LAB14
-        realm = LAB14.LAN
-        netbios name = LSC14
-        security = ADS
-        dns forwarder = 172.30.20.55
+[global]<br>
+        workgroup = LAB14<br>
+        realm = LAB14.LAN<br>
+        netbios name = LSC14<br>
+        security = ADS<br>
+        dns forwarder = 172.30.20.55<br>
 
-idmap config * : backend = tdb
-idmap config *:range = 50000-1000000
+idmap config * : backend = tdb<br>
+idmap config *:range = 50000-1000000<br>
 
-   template homedir = /home/%D/%U
-   template shell = /bin/bash
-   winbind use default domain = true
-   winbind offline logon = false
-   winbind nss info = rfc2307
-   winbind enum users = yes
-   winbind enum groups = yes
+   template homedir = /home/%D/%U<br>
+   template shell = /bin/bash<br>
+   winbind use default domain = true<br>
+   winbind offline logon = false<br>
+   winbind nss info = rfc2307<br>
+   winbind enum users = yes<br>
+   winbind enum groups = yes<br>
 
-  vfs objects = acl_xattr
-  map acl inherit = Yes
+  vfs objects = acl_xattr<br>
+  map acl inherit = Yes<br>
   store dos attributes = Yes<br>
 
 <p align="center">
