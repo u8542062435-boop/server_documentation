@@ -96,11 +96,11 @@ DNS forwarder IP address: 8.8.8.8<br>
 `sudo systemctl status samba-ad-dc`<br>
 
 <p align="center">
-  <img src="Images/3.samba_status" width="500">
+  <img src="Images/7.samba_status.jpg" width="500">
 </p>
 
 <p align="center">
-  <em>Samba_status</em>
+  <em>Samba_file</em>
 </p>
 
 ## SETTING TIME SYNCHRONIZATION<br>
