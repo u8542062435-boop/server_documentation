@@ -118,6 +118,10 @@ Protocol (NTP) server in Samba.
 ### Modify the /etc/chrony/chrony.conf configuration file to enable the chrony NTP server and point the NTP socket location to /var/lib/samba/ntp_signd.<br>
 `sudo nano /etc/chrony/chrony.conf`
 
+bindcmdaddress 172.30.20.55<br>
+allow 172.30.20.0/24<br>
+ntpsigndsocket /var/lib/samba/ntp_signd
+
 <p align="center">
   <img src="Images/5.chrony.jpg" width="500">
 </p>
@@ -125,10 +129,6 @@ Protocol (NTP) server in Samba.
 <p align="center">
   <em>Samba_file</em>
 </p>
-
-bindcmdaddress 172.30.20.55<br>
-allow 172.30.20.0/24<br>
-ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Restart and verify the chronyd service on the Samba AD server.<br>
