@@ -6,6 +6,15 @@
 `sudo hostnamectl set-hostname ls14`
 
 ### Modify file hosts <br>
+
+<p align="center">
+  <img src="Images/2.etc_hosts.jpg" width="500">
+</p>
+
+<p align="center">
+  <em>etc_hosts</em>
+</p>
+
 `sudo nano /etc/hosts
 `<br>172.30.20.55 ls14.lab14.lan ls14
 
@@ -40,13 +49,6 @@ search lab14.lan<br>
   <em>Netplan_Server</em>
 </p>
 <br>
-<p align="center">
-  <img src="Images/2.etc_hosts.jpg" width="500">
-</p>
-
-<p align="center">
-  <em>etc_hosts</em>
-</p>
 
 ## SAMBA INSTALL
 
