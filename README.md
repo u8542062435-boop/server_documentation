@@ -251,7 +251,7 @@ ls14.lab14.lan<br>
 
 ### Verify authentication on the Kerberos server using the user administrator<br>
 `kinit administrator@LAB14.LAN`<br>
-`klist`
+`klist`<br>
 
 
 ### Move smb.conf file and create a backup<br>
