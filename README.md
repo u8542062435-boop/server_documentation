@@ -162,7 +162,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Verify authentication on the Kerberos server using the user manager<br>
-`kinit administrator@LAB14.LAN`
+`kinit administrator@LAB14.LAN`<br>
 `klist`
 
 
