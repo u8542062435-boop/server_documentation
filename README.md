@@ -7,6 +7,9 @@
 
 ### Modify file hosts <br>
 
+`sudo nano /etc/hosts
+`<br>172.30.20.55 ls14.lab14.lan ls14
+
 <p align="center">
   <img src="Images/2.etc_hosts.jpg" width="500">
 </p>
@@ -14,9 +17,6 @@
 <p align="center">
   <em>etc_hosts</em>
 </p>
-
-`sudo nano /etc/hosts
-`<br>172.30.20.55 ls14.lab14.lan ls14
 
 ### Verify the FQDN<br>
 `hostname -f`
