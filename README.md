@@ -43,7 +43,7 @@ search lab14.lan<br>
 </p>
 
 <p align="center">
-  <em>Resolv.conf</em>
+  <em>Resolv_conf</em>
 </p>
 
 ### We make the /etc/resolv.conf file immutable so it cannot be changed.<br>
