@@ -38,6 +38,14 @@ nameserver 172.30.20.55<br>
 nameserver 8.8.8.8<br>
 search lab14.lan<br>
 
+<p align="center">
+  <img src="Images/6.resolv.jpg" width="400">
+</p>
+
+<p align="center">
+  <em>Resolv.conf</em>
+</p>
+
 ### We make the /etc/resolv.conf file immutable so it cannot be changed.<br>
 `sudo chattr +i /etc/resolv.conf`<br>
 
