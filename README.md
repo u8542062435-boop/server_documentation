@@ -235,8 +235,8 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 ### Configure the /etc/hosts file<br>
 `sudo nano /etc/hosts`
 
-172.30.20.55     lab14.lan lab14
-172.30.20.55     ls14.lab14.lan ls14
+172.30.20.55     lab14.lan lab14<br>
+172.30.20.55     ls14.lab14.lan ls14<br>
 
 <p align="center">
   <img src="Images/11.hosts.jpg" width="500">
