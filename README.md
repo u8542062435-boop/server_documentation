@@ -7,7 +7,7 @@
 
 ### Modify file hosts <br>
 
-`sudo nano /etc/hosts<br>
+`sudo nano /etc/hosts`<br>
 `172.30.20.55 ls14.lab14.lan ls14
 
 <p align="center">
