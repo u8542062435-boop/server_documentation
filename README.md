@@ -221,7 +221,27 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 ### Remove a member from a group<br>
 `samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>`
 
-[https://github.com/u8542062435-boop/Make-your-Ubuntu-Server-a-functional-router](https://github.com)
+# Make-your-Ubuntu-Server-a-functional-router
+
+### Modify file *unmute line net.ipv4.ip.forward=1*
+`sudo nano /etc/sysctl.conf`
+
+### Apply modication
+`sudo sysctl -p /etc/sysctl.conf`
+
+### Test
+`sudo cat /proc/sys/net/ipv4/ip_forward`
+
+### Test iptables<br>
+`sudo iptables -L`<br>
+
+*Note: If there is no Input, Output or Fordward then execute*<br>
+
+`sudo iptables -P FORDWARD ACCEPT`
+
+### Enrouting
+`sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE`
+
 
 
 ## UBUNTU CLIENT CONFIGURATION
