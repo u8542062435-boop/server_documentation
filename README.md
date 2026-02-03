@@ -336,6 +336,51 @@ valid users = @DL_Compartido`
 
 `sudo systemctl restart smbd`
 
+# Trust
+
+## STEP 1: Obtain the Kerberos ticket for LAB14
+
+### From ls13:
+
+`kdestroy`<br>
+`kinit Administrator@LAB14.LAN`
+
+Enter the password for LAB14.
+
+Check:
+
+`klist`
+
+#### It should show:
+
+Default primary: Administrator@LAB14.LAN
+
+## STEP 2: Create the trust (WITHOUT --admin)
+
+Now run the following command exactly:
+
+`samba-tool domain trust create lab14.lan
+
+--type=external
+
+--direction=both`
+
+### Samba will use the active Kerberos ticket
+
+Note <<<<<<
+If it fails: Quick Kerberos test:
+`kvno cifs/ls14.lab14.lan`
+
+If it returns a number → Kerberos OK.
+
+## STEP 3 (automatic)
+
+Samba will then ask for the local domain credentials if needed.
+
+### Expected result
+Creating trust with domain 'lab14.lan'
+Trust created successfully
+
 # Make-your-Ubuntu-Server-a-functional-router
 
 ### Modify file *unmute line net.ipv4.ip.forward=1*
