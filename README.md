@@ -231,6 +231,53 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 `samba-tool user create George2 --userou="OU=Usuarios"`
 
+# IMPORTANT<<<<
+
+##There is a way to do the things right
+
+`samba-tool group add GG_Usuarios`
+`samba-tool group add GG_TI`
+`samba-tool group add DL_Share_Contabilidad`
+
+### Move groups to their OU's
+
+`samba-tool group move GG_TI "OU=Grupos"`
+
+### Create the users
+
+`samba-tool user create juan`
+`samba-tool user move juan "OU=Usuarios"`
+
+### Join the users to the groups
+
+`samba-tool group addmembers GG_TI juan`
+`samba-tool group addmembers DL_Share_Contabilidad juan`
+
+### Share directories
+
+`mkdir -p /srv/samba/contabilidad`
+`chown root:"DL_Share_Contabilidad" /srv/samba/contabilidad`
+`chmod 2770 /srv/samba/contabilidad`
+
+### Changes on smb.conf
+
+What does your section in smb.conf do?
+[Contabilidad]
+
+path = /srv/samba/contabilidad
+read only = no
+valid users = @DL_Share_Contabilidad
+
+[Contabilidad] → the name of the shared resource that clients will see.
+
+path = /srv/samba/contabilidad → the physical folder in Ubuntu.
+
+read only = no → allows writing (if set to yes, it would be read-only).
+
+valid users = @DL_Share_Contabilidad → only users who are members of the DL_Share_Accounting group can access it.
+
+**Note: The @ symbol before the group is required to indicate that it is a group and not a user.**
+
 # Make-your-Ubuntu-Server-a-functional-router
 
 ### Modify file *unmute line net.ipv4.ip.forward=1*
