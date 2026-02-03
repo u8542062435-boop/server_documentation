@@ -150,8 +150,8 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Verify domain names<br>
-`host -t A lab14.lan`<br>
-`host -t A ls14.lab14.lan`<br>
+`host lab14.lan`<br>
+`host ls14.lab14.lan`<br>
 
 
 ### Verify that the Kerberos and LDAP service records point to the FQDN of your Samba Active Directory server<br>
