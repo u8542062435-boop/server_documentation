@@ -278,6 +278,64 @@ valid users = @DL_Share_Contabilidad → only users who are members of the DL_Sh
 
 **Note: The @ symbol before the group is required to indicate that it is a group and not a user.**
 
+## File System Permissions
+
+### Samba respects Linux permissions, so you must also do the following:
+
+`chown root:DL_Share_Accounting /srv/samba/accounting`
+`chmod 2770 /srv/samba/accounting`
+
+chown root:group → the group owner.
+
+chmod 2770 → permissions:
+
+2 → inherits group on new folders/files
+
+7 → owner can read/write/execute
+
+7 → group can read/write/execute
+
+0 → others have no access
+
+## Restart Samba
+
+After editing smb.conf:
+
+`systemctl restart smbd`
+
+# Share folders (steps)
+
+`sudo mkdir -p /srv/samba/Compartido`
+
+File System Permissions
+
+### We'll use a Samba group to control access.
+
+Let's assume the group is called DL_Compartido:
+
+`sudo groupadd DL_Compartido # if it doesn't exist`
+`sudo chown root:DL_Compartido /srv/samba/Compartido`
+`sudo chmod 2770 /srv/samba/Compartido`
+
+2770 → owner and group can read/write, others cannot.
+
+2 → makes new files inherit the group.
+
+## Configuring the Share in Samba
+
+Edit /etc/samba/smb.conf and add the following to the end:
+
+`[Compartido]
+path = /srv/samba/Compartido
+read only = no
+valid users = @DL_Compartido`
+
+@DL_Compartido → all members of the group have access.
+
+## Then Samba reload:
+
+`sudo systemctl restart smbd`
+
 # Make-your-Ubuntu-Server-a-functional-router
 
 ### Modify file *unmute line net.ipv4.ip.forward=1*
@@ -298,7 +356,6 @@ valid users = @DL_Share_Contabilidad → only users who are members of the DL_Sh
 
 ### Enrouting
 `sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE`
-
 
 
 ## UBUNTU CLIENT CONFIGURATION
