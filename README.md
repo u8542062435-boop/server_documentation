@@ -150,7 +150,7 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Verify domain names<br>
-`host -t A ls14.lab14.lan`<br>
+`host -t A lab14.lan`<br>
 `host -t A ls14.lab14.lan`<br>
 
 
