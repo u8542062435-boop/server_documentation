@@ -235,8 +235,8 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 ##There is a way to do the things right
 
-`samba-tool group add GG_Usuarios`
-`samba-tool group add GG_TI`
+`samba-tool group add GG_Usuarios`<br>
+`samba-tool group add GG_TI`<br>
 `samba-tool group add DL_Share_Contabilidad`
 
 ### Move groups to their OU's
@@ -250,13 +250,13 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 ### Join the users to the groups
 
-`samba-tool group addmembers GG_TI juan`
+`samba-tool group addmembers GG_TI juan`<br>
 `samba-tool group addmembers DL_Share_Contabilidad juan`
 
 ### Share directories
 
-`mkdir -p /srv/samba/contabilidad`
-`chown root:"DL_Share_Contabilidad" /srv/samba/contabilidad`
+`mkdir -p /srv/samba/contabilidad`<br>
+`chown root:"DL_Share_Contabilidad" /srv/samba/contabilidad`<br>
 `chmod 2770 /srv/samba/contabilidad`
 
 ### Changes on smb.conf
@@ -282,7 +282,7 @@ valid users = @DL_Share_Contabilidad → only users who are members of the DL_Sh
 
 ### Samba respects Linux permissions, so you must also do the following:
 
-`chown root:DL_Share_Accounting /srv/samba/accounting`
+`chown root:DL_Share_Accounting /srv/samba/accounting`<br>
 `chmod 2770 /srv/samba/accounting`
 
 chown root:group → the group owner.
@@ -313,8 +313,8 @@ File System Permissions
 
 Let's assume the group is called DL_Compartido:
 
-`sudo groupadd DL_Compartido # if it doesn't exist`
-`sudo chown root:DL_Compartido /srv/samba/Compartido`
+`sudo groupadd DL_Compartido # if it doesn't exist`<br>
+`sudo chown root:DL_Compartido /srv/samba/Compartido`<br>
 `sudo chmod 2770 /srv/samba/Compartido`
 
 2770 → owner and group can read/write, others cannot.
