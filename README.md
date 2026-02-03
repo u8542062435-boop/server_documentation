@@ -223,6 +223,14 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 ### Remove a member from a group<br>
 `samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>`
 
+### Create a OU
+
+`samba-tool ou create "OU=NombreOU"`
+
+### Create a user inside the OU
+
+`samba-tool user create George2 --userou="OU=Usuarios"`
+
 # Make-your-Ubuntu-Server-a-functional-router
 
 ### Modify file *unmute line net.ipv4.ip.forward=1*
