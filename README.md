@@ -368,7 +368,7 @@ Now run the following command exactly:
 ### Samba will use the active Kerberos ticket
 
 Note <<<<<<
-If it fails: Quick Kerberos test:
+If it fails: Quick Kerberos test:<br>
 `kvno cifs/ls14.lab14.lan`
 
 If it returns a number → Kerberos OK.
