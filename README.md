@@ -387,6 +387,9 @@ search lab14.lan
 | /etc/resolv.conf       | DNS configuration                |
 | /etc/samba/smb.conf    | Samba domain configuration       |
 
+
+
+
 `kdestroy`<br>
 `kinit Administrator@LAB14.LAN`
 
