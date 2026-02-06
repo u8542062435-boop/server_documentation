@@ -371,7 +371,7 @@ search lab14.lan
 ### Most common problems
 
 | Problem           | Fix                                   |
-|-------------------|----------------------------------------|
+|-------------------|---------------------------------------|
 | DNS not resolving | Fix `/etc/resolv.conf` or Samba DNS   |
 | Time mismatch     | Sync with `ntp` or `chrony`           |
 | Firewall          | Open ports: 53, 88, 135, 389, 445     |
@@ -379,12 +379,13 @@ search lab14.lan
 
 ### Files you may need to check
 
-## On Ubuntu, these are the important ones:
+### On Ubuntu, these are the important ones:
 
-File	                    Purpose
-/etc/hosts	              Static name resolution (optional)
-/etc/resolv.conf	        DNS configuration
-/etc/samba/smb.conf	      Samba domain configuration
+| File                   | Purpose                          |
+|------------------------|----------------------------------|
+| /etc/hosts             | Static name resolution (optional)|
+| /etc/resolv.conf       | DNS configuration                |
+| /etc/samba/smb.conf    | Samba domain configuration       |
 
 `kdestroy`<br>
 `kinit Administrator@LAB14.LAN`
