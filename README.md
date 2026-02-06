@@ -337,10 +337,55 @@ valid users = @DL_Compartido`
 `sudo systemctl restart smbd`
 
 # Trust
+Be sure both servers were created with:
 
-## STEP 1: Obtain the Kerberos ticket for LAB14
+`samba-tool domain provision`
 
-### From ls13:
+You can check that with:
+
+`samba -V`
+
+Test network
+ping ls13.lab13.lan
+ping ls14.lab14.lan
+
+Test DNS
+host ls13.lab13.lan
+host ls14.lab14.lan
+
+If DNS fails, we must configure BIND or Samba internal DNS.
+
+on /etc/resolv.conf each server must contain local DNS server
+
+nameserver 127.0.0.1
+search lab14.lan
+
+# Create a trust
+
+`samba-tool domain trust create lab13.lan \
+--type=external \
+--direction=both \
+-U"LAB13\Administrator"`
+
+## Verify the trust with:
+
+`samba-tool domain trust list`
+
+### Most common problems
+
+Problem	              Fix
+DNS not resolving	    Fix /etc/resolv.conf or Samba DNS
+Time mismatch	        Sync with ntp or chrony
+Firewall	            Open ports: 53, 88, 135, 389, 445
+
+### Files you may need to check
+
+## On Ubuntu, these are the important ones:
+
+File	                    Purpose
+/etc/hosts	              Static name resolution (optional)
+/etc/resolv.conf	        DNS configuration
+/etc/samba/smb.conf	      Samba domain configuration
 
 `kdestroy`<br>
 `kinit Administrator@LAB14.LAN`
