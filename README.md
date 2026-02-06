@@ -445,7 +445,7 @@ Trust created successfully
 
 *Note: If there is no Input, Output or Fordward then execute*<br>
 
-`sudo iptables -P FORDWARD ACCEPT`
+`sudo iptables -P FORWARD ACCEPT`
 
 ### Enrouting
 `sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE`
