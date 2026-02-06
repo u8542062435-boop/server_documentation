@@ -564,7 +564,7 @@ shadow:       compat winbind<br>
 hosts:        files dns<br>
 
 <p align="center">
-  <img src="Images/10.nsswitch_conf.jpg" width="500">
+  <img src="Images/10.nsswitch_conf.png" width="500">
 </p>
 
 <p align="center">
