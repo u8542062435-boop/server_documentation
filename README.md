@@ -362,10 +362,7 @@ search lab14.lan
 
 # Create a trust
 
-`samba-tool domain trust create lab13.lan \
---type=external \
---direction=both \
--U"LAB13\Administrator"`
+`samba-tool domain trust create lab13.lan --type=external --direction=both -U"LAB13\Administrator"`
 
 ## Verify the trust with:
 
@@ -373,10 +370,12 @@ search lab14.lan
 
 ### Most common problems
 
-Problem	              Fix
-DNS not resolving	    Fix /etc/resolv.conf or Samba DNS
-Time mismatch	        Sync with ntp or chrony
-Firewall	            Open ports: 53, 88, 135, 389, 445
+| Problem           | Fix                                   |
+|-------------------|----------------------------------------|
+| DNS not resolving | Fix `/etc/resolv.conf` or Samba DNS   |
+| Time mismatch     | Sync with `ntp` or `chrony`           |
+| Firewall          | Open ports: 53, 88, 135, 389, 445     |
+
 
 ### Files you may need to check
 
