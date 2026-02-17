@@ -626,7 +626,7 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 ### Si tienes grupo en AD llamado Ventas:
 
-`sudo chown root:"MIDOMINIO\Ventas" /srv/compartido`
+`sudo chown root:"MIDOMINIO\Ventas" /srv/compartido`<br>
 `sudo chmod 2770 /srv/compartido`
 
 ### Crear el recurso compartido en Samba
@@ -637,10 +637,10 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 **Agregar al final:**
 
-[Compartido]
-   path = /srv/compartido
-   read only = no
-   browsable = yes
+[Compartido]<br>
+   path = /srv/compartido<br>
+   read only = no<br>
+   browsable = yes<br>
    valid users = @MIDOMINIO\Ventas
 
 
