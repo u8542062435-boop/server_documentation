@@ -617,3 +617,73 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 ### Authenticate via GUI<br>
 `administrator@lab14.lan`
+
+## Crear carpetas compartidas
+
+`sudo mkdir -p /srv/compartido`
+
+### Asignar grupo del dominio:
+
+### Si tienes grupo en AD llamado Ventas:
+
+`sudo chown root:"MIDOMINIO\Ventas" /srv/compartido`
+`sudo chmod 2770 /srv/compartido`
+
+### Crear el recurso compartido en Samba
+
+**Editar:**
+
+`sudo nano /etc/samba/smb.conf`
+
+**Agregar al final:**
+
+[Compartido]
+   path = /srv/compartido
+   read only = no
+   browsable = yes
+   valid users = @MIDOMINIO\Ventas
+
+
+**Reiniciar:**
+
+`sudo systemctl restart smbd`
+
+### Probar desde Windows
+
+***En un equipo cliente:***
+
+`\\IP_DEL_SERVIDOR\Compartido`
+
+**O:**
+
+`\\servidor\Compartido`
+
+### Opcional: Permitir ACL avanzadas (recomendado)
+
+### Instalar:
+
+`sudo apt install acl`
+
+**Montar con ACL (si es necesario):**
+
+`sudo setfacl -m g:"MIDOMINIO\Ventas":rwx /srv/compartido`
+
+### Comandos de diagnóstico útiles
+
+**Ver estado del dominio:**
+
+`net ads testjoin`
+
+**Ver información del dominio:**
+
+`net ads info`
+
+**Ver usuarios:**
+
+`wbinfo -u`
+
+**Ver grupos:**
+
+`wbinfo -g`
+
+
