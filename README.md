@@ -403,7 +403,7 @@ Check:
 
 Default primary: Administrator@LAB14.LAN
 
-## STEP 2: Create the trust (WITHOUT --admin)
+## Create the trust (WITHOUT --admin)
 
 Now run the following command exactly:
 
@@ -421,7 +421,7 @@ If it fails: Quick Kerberos test:<br>
 
 If it returns a number → Kerberos OK.
 
-## STEP 3 (automatic)
+## (automatic)
 
 Samba will then ask for the local domain credentials if needed.
 
