@@ -618,24 +618,24 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 ### Authenticate via GUI<br>
 `administrator@lab14.lan`
 
-## Crear carpetas compartidas
+## Create shared folders
 
 `sudo mkdir -p /srv/compartido`
 
-### Asignar grupo del dominio:
+### Asign domain group:
 
-### Si tienes grupo en AD llamado Ventas:
+### is there's a group named Ventas:
 
 `sudo chown root:"MIDOMINIO\Ventas" /srv/compartido`<br>
 `sudo chmod 2770 /srv/compartido`
 
-### Crear el recurso compartido en Samba
+### Create the shared resource in Samba
 
-**Editar:**
+**Edit:**
 
 `sudo nano /etc/samba/smb.conf`
 
-**Agregar al final:**
+**Add at the end:**
 
 [Compartido]<br>
    path = /srv/compartido<br>
@@ -644,13 +644,13 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
    valid users = @MIDOMINIO\Ventas
 
 
-**Reiniciar:**
+**Reboot:**
 
 `sudo systemctl restart smbd`
 
-### Probar desde Windows
+### Try from one client
 
-***En un equipo cliente:***
+***In a windows client:***
 
 `\\IP_DEL_SERVIDOR\Compartido`
 
@@ -658,31 +658,31 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 `\\servidor\Compartido`
 
-### Opcional: Permitir ACL avanzadas (recomendado)
+### Optional: allow advanced ACL 
 
-### Instalar:
+### Install:
 
 `sudo apt install acl`
 
-**Montar con ACL (si es necesario):**
+**Mount with ACL (if necessary):**
 
 `sudo setfacl -m g:"MIDOMINIO\Ventas":rwx /srv/compartido`
 
-### Comandos de diagnóstico útiles
+### Useful diagnostic commands
 
-**Ver estado del dominio:**
+**View domain status:**
 
 `net ads testjoin`
 
-**Ver información del dominio:**
+**Watch information about the domain:**
 
 `net ads info`
 
-**Ver usuarios:**
+**See users:**
 
 `wbinfo -u`
 
-**Ver grupos:**
+**See groups:**
 
 `wbinfo -g`
 
