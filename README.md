@@ -355,6 +355,9 @@ host ls14.lab14.lan
 
 If DNS fails, we must configure BIND or Samba internal DNS.
 
+Edit smb.conf adding:
+dns forwarder = <ip of the other server>
+
 on /etc/resolv.conf each server must contain local DNS server
 
 nameserver 127.0.0.1
