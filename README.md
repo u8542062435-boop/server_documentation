@@ -686,4 +686,14 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 `wbinfo -g`
 
+## Train Process
+
+**With this filter the process**<br>
+`pgrep -a sl`
+
+**To stop and restart the process**<br>
+```
+kill -19 PID
+kill -18 PID
+```
 
