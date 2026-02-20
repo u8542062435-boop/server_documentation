@@ -369,7 +369,9 @@ search lab14.lan
 
 ## Verify the trust with:
 
-`samba-tool domain trust list`
+`samba-tool domain trust list`<br>
+`wbinfo -m`<br>
+`wbinfo -n LAB13\\Administrator`
 
 ### Most common problems
 
