@@ -5,12 +5,18 @@ Edit netplan, add interface
 ## SERVER CONFIGURATION
 
 ### Change hostname<br>
-`sudo hostnamectl set-hostname ls14`
+```
+sudo hostnamectl set-hostname ls14
+```
 
 ### Modify file hosts <br>
 
-`sudo nano /etc/hosts`<br>
+```
+sudo nano /etc/hosts
+```
+```
 172.30.20.55 ls14.lab14.lan ls14
+```
 
 <p align="center">
   <img src="Images/2.etc_hosts.jpg" width="500">
@@ -21,24 +27,40 @@ Edit netplan, add interface
 </p>
 
 ### Verify the FQDN<br>
-`hostname -f`
+```
+hostname -f
+```
 
 ### Verify if the FQDN is able to solv the Samba Ip address<br>
-`ping -c2 ls14.lab14.lan`
+```
+ping -c2 ls14.lab14.lan
+```
 
 ### Disable systemd-resolved<br>
-`sudo systemctl disable --now systemd-resolved`
+```
+sudo systemctl disable --now systemd-resolved
+```
 
 ### eliminate and unlink /etc/resolv.conf<br>
-`sudo unlink /etc/resolv.conf`
+```
+sudo unlink /etc/resolv.conf
+```
 
 ### Create the new file /etc/resolv.conf<br>
-`sudo nano /etc/resolv.conf`
+```
+sudo nano /etc/resolv.conf
+```
 
 ### We add the next lines:<br>
-nameserver 172.30.20.55<br>
-nameserver 8.8.8.8<br>
-search lab14.lan<br>
+```
+nameserver 172.30.20.55
+```
+```
+nameserver 8.8.8.8
+```
+```
+search lab14.lan
+```
 
 <p align="center">
   <img src="Images/6.resolv.jpg" width="400">
@@ -49,7 +71,9 @@ search lab14.lan<br>
 </p>
 
 ### We make the /etc/resolv.conf file immutable so it cannot be changed.<br>
-`sudo chattr +i /etc/resolv.conf`<br>
+```
+sudo chattr +i /etc/resolv.conf
+```
 
 <p align="center">
   <img src="Images/1.netplan.jpg" width="400">
@@ -63,29 +87,43 @@ search lab14.lan<br>
 ## SAMBA INSTALL
 
 ### Update the package index<br>
-`sudo apt update`
+```
+sudo apt update
+```
 
 ### Install Samba with its packages and dependencies<br>
-`sudo apt install -y acl attr samba samba-dsdb-modules samba-vfs-modules smbclient winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user dnsutils chrony net-tools`
+```
+sudo apt install -y acl attr samba samba-dsdb-modules samba-vfs-modules smbclient winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user dnsutils chrony net-tools
+```
 
 LAB14.LAN<br>
 ls14.lab14.lan<br>
 ls14.lab14.lan
 
 ### Stop and disable the services that the Samba Active Directory server does not require  (smbd, nmbd y winbind)<br>
-`sudo systemctl disable --now smbd nmbd winbind`
+```
+sudo systemctl disable --now smbd nmbd winbind
+```
 
 ### The server only needs samba-ac-dc to function as an Active Directory and controller domain.<br>
-`sudo systemctl unmask samba-ad-dc`<br>
-`sudo systemctl enable samba-ad-dc`
+```
+sudo systemctl unmask samba-ad-dc
+```
+```
+sudo systemctl enable samba-ad-dc
+```
 
 ## SAMBA ACTIVE DIRECTORY CONFIGURATION
 
 ### Create a backup of /etc/samba/smb.conf<br>
-`sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.orig`
+```
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.orig
+```
 
 ### Run the samba-tool command to begin provisioning Samba Active Directory.<br>
-`sudo samba-tool domain provision`
+```
+sudo samba-tool domain provision
+```
 
 Realm: LAB14.LAN<br>
 Domain: LAB14<br>
@@ -94,16 +132,24 @@ DNS backend: SAMBA_INTERNAL<br>
 DNS forwarder IP address: 8.8.8.8<br>
 
 ### Create a backup of the default Kerberos configuration.<br>
-`sudo mv /etc/krb5.conf /etc/krb5.conf.orig`
+```
+sudo mv /etc/krb5.conf /etc/krb5.conf.orig
+```
 
 ### Replace with the file /var/lib/samba/private/krb5.conf.<br>
-`sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf`
+```
+sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+```
 
 ### Start Samba Active Directory service samba-ad-dc<br>
-`sudo systemctl start samba-ad-dc`
+```
+sudo systemctl start samba-ad-dc
+```
 
 ### Test service<br>
-`sudo systemctl status samba-ad-dc`<br>
+```
+sudo systemctl status samba-ad-dc
+```
 
 <p align="center">
   <img src="Images/8.samba_status.jpg" width="500">
