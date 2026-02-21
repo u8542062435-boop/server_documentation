@@ -1,4 +1,4 @@
-# Guía de Configuración de Ubuntu Server y Unión de Clientes Ubuntu y Windows al Dominio
+# Ubuntu Server Configuration Guide and Joining Ubuntu and Windows Clients to the Domain
 ## INTERNAL NET
 Edit netplan, add interface
 
@@ -626,23 +626,39 @@ hosts:        files dns<br>
 `sudo systemctl restart winbind`
 
 ### Check if Ubuntu Desktop was integrated into the domain<br>
-`wbinfo -u`<br>
-`wbinfo -g`<br>
+```
+wbinfo -u
+```
+```
+wbinfo -g
+```
 
 ### Verify the Winbind NSS module using the getent command<br>
-`sudo getent passwd | grep administrator`<br>
-`sudo getent group | grep 'domain admins'`<br>
-`id administrator`<br>
+```
+sudo getent passwd | grep administrator
+```
+```
+sudo getent group | grep 'domain admins'
+```
+```
+id administrator
+```
 
 ### Configure pam-auth-update to authenticate with domain accounts and automatically create home directories<br>
-`sudo pam-auth-update`
+```
+sudo pam-auth-update
+```
 
 ### Edit the /etc/pam.d/common-account file to automatically create home directories<br>
-`nano /etc/pam.d/common-account`
+```
+nano /etc/pam.d/common-account
+```
 
 ### Add the following at the end of the file:<br>
 
+```
 session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
+```
 
 <p align="center">
   <img src="Images/4.etc_pam.jpg" width="500">
@@ -653,7 +669,9 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 </p>
 
 ### Authenticate with a Samba4 AD account<br>
-`su administrator`
+```
+su administrator
+```
 
 <p align="center">
   <img src="Images/3.administrator.jpg" width="500">
@@ -664,27 +682,39 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 </p>
 
 ### Add domain account with root privileges<br>
-`sudo usermod -aG sudo administrator`
+```
+sudo usermod -aG sudo administrator
+```
 
 ### Authenticate via GUI<br>
-`administrator@lab14.lan`
+```
+administrator@lab14.lan
+```
 
 ## Create shared folders
 
-`sudo mkdir -p /srv/compartido`
+```
+sudo mkdir -p /srv/compartido
+```
 
 ### Asign domain group:
 
 ### is there's a group named Ventas:
 
-`sudo chown root:"MIDOMINIO\Ventas" /srv/compartido`<br>
-`sudo chmod 2770 /srv/compartido`
+```
+sudo chown root:"MIDOMINIO\Ventas" /srv/compartido
+```
+```
+sudo chmod 2770 /srv/compartido
+```
 
 ### Create the shared resource in Samba
 
 **Edit:**
 
-`sudo nano /etc/samba/smb.conf`
+```
+sudo nano /etc/samba/smb.conf
+```
 
 **Add at the end:**
 
@@ -697,50 +727,70 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 
 **Reboot:**
 
-`sudo systemctl restart smbd`
+```
+sudo systemctl restart smbd
+```
 
 ### Try from one client
 
 ***In a windows client:***
 
-`\\IP_DEL_SERVIDOR\Compartido`
+```
+\\IP_DEL_SERVIDOR\Compartido
+```
 
 **O:**
 
-`\\servidor\Compartido`
+```
+\\servidor\Compartido
+```
 
 ### Optional: allow advanced ACL 
 
 ### Install:
 
-`sudo apt install acl`
+```
+sudo apt install acl
+```
 
 **Mount with ACL (if necessary):**
 
-`sudo setfacl -m g:"MIDOMINIO\Ventas":rwx /srv/compartido`
+```
+sudo setfacl -m g:"MIDOMINIO\Ventas":rwx /srv/compartido
+```
 
 ### Useful diagnostic commands
 
 **View domain status:**
 
-`net ads testjoin`
+```
+net ads testjoin
+```
 
 **Watch information about the domain:**
 
-`net ads info`
+```
+net ads info
+```
 
 **See users:**
 
-`wbinfo -u`
+```
+wbinfo -u
+```
 
 **See groups:**
 
-`wbinfo -g`
+```
+wbinfo -g
+```
 
 ## Train Process
 
 **With this filter the process**<br>
-`pgrep -a sl`
+```
+pgrep -a sl
+```
 
 **To stop and restart the process**<br>
 ```
