@@ -790,3 +790,17 @@ ls /srv/nfs/shared
 ```
 If you see the file → it works.
 
+## Very common problems in AWS
+
+If it's not working, it's almost always because of:<br>
+
+❌ Security Group blocking 2049<br>
+
+❌ Using a public IP address instead of a private one<br>
+
+❌ Instances in subnets without a route<br>
+
+❌ NFS server not restarted<br>
+
+❌ Error in /etc/exports
+
