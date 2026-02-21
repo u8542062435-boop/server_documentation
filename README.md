@@ -578,8 +578,10 @@ klist
 
 #### It should show:
 
-Default primary: Administrator&#64;LAB14.LAN
-
+Default primary: 
+```
+Administrator@LAB14.LAN
+```
 ## Create the trust (WITHOUT --admin)
 
 Now run the following command exactly:
