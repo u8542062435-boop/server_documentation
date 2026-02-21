@@ -168,11 +168,17 @@ To ensure proper time synchronization, we must also configure a network Time
 Protocol (NTP) server in Samba.
 
 ### Change the default permissions and ownership of the /var/lib/samba/ntp_signd/ntp_signed. The chrony user/group must have read permissions in the ntp_signed.<br>
-`sudo chown root:_chrony /var/lib/samba/ntp_signd/`<br>
-`sudo chmod 750 /var/lib/samba/ntp_signd/`
+```
+sudo chown root:_chrony /var/lib/samba/ntp_signd/
+```
+```
+sudo chmod 750 /var/lib/samba/ntp_signd/
+```
 
 ### Modify the /etc/chrony/chrony.conf configuration file to enable the chrony NTP server and point the NTP socket location to /var/lib/samba/ntp_signd.<br>
-`sudo nano /etc/chrony/chrony.conf`
+```
+sudo nano /etc/chrony/chrony.conf
+```
 
 bindcmdaddress 172.30.20.55<br>
 allow 172.30.20.0/24<br>
@@ -188,62 +194,96 @@ ntpsigndsocket /var/lib/samba/ntp_signd
 
 
 ### Restart and verify the chronyd service on the Samba AD server.<br>
-`sudo systemctl restart chronyd`<br>
-`sudo systemctl status chronyd`
+```
+sudo systemctl restart chronyd
+```
+```
+sudo systemctl status chronyd
+```
 
 
 ## VERIFY SAMBA ACTIVE DIRECTORY<br>
 
 
 ### Verify domain names<br>
-`host -t A lab14.lan`<br>
-`host -t A ls14.lab14.lan`<br>
+```
+host -t A lab14.lan
+```
+```
+host -t A ls14.lab14.lan
+```
 
 
 ### Verify that the Kerberos and LDAP service records point to the FQDN of your Samba Active Directory server<br>
-`host -t SRV _kerberos._udp.lab14.lan`<br>
-`host -t SRV _ldap._tcp.lab14.lan`
+```
+host -t SRV _kerberos._udp.lab14.lan
+```
+```
+host -t SRV _ldap._tcp.lab14.lan
+```
 
 
 ### Verify the default resources available in Samba Active Directory.<br>
-`smbclient -L lab14.lan -N`
+```
+smbclient -L lab14.lan -N
+```
 
 
 ### Verify authentication on the Kerberos server using the user manager<br>
-`kinit administrator@LAB14.LAN`<br>
-`klist`
+```
+kinit administrator@LAB14.LAN
+```
+```
+klist
+```
 
 
 ### Log in to the server via SMB<br>
-`sudo smbclient //localhost/netlogon -U 'administrator'`
+```
+sudo smbclient //localhost/netlogon -U 'administrator'
+```
 
 
 ### Change the administrator user password<br>
-`sudo samba-tool user setpassword administrator`
+```
+sudo samba-tool user setpassword administrator
+```
 
 
 ### Verify the integrity of the Samba configuration file.<br>
-`testparm`
+```
+testparm
+```
 
 
 ### Verify the operation of Windows Active Directory Domain Controller 2008<br>
-`sudo samba-tool domain level show`
+```
+sudo samba-tool domain level show
+```
 
 
 ### Create user SAMBA AD<br>
-`sudo samba-tool user create George`
+```
+sudo samba-tool user create George
+```
 
 
 ### List SAMBA AD users<br>
-`sudo samba-tool user list`
+```
+sudo samba-tool user list
+```
 
 
 ### Delete a user<br>
-`samba-tool user delete <nombre_del_usuario>`
+```
+samba-tool user delete <nombre_del_usuario>
+```
 
 
 ### List SAMBA AD computers<br>
-`sudo samba-tool computer list`
+```
+sudo samba-tool computer list
+```
 
 
 ### Delete SAMBA AD computer<br>
