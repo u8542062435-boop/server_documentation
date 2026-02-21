@@ -640,7 +640,43 @@ sudo iptables -P FORWARD ACCEPT
 ```
 sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 ```
+# Scheduled Tasks (crontab)
 
+Use crontab to schedule automated tasks on the domain controller, such as log rotation or backup scripts.
+
+### Open crontab editor for current user
+```
+crontab -e
+```
+### Or edit root's crontab for system-level tasks
+```
+sudo crontab -e
+```
+
+Example crontab entries:
+
+### Backup Samba configuration daily at 2:00 AM
+0 2 * * * tar -czf /backup/samba-conf-$(date +\%F).tar.gz /etc/samba/ /var/lib/samba/
+
+### Clean up old backup files older than 7 days
+0 3 * * * find /backup/ -name "samba-conf-*.tar.gz" -mtime +7 -delete
+
+### Check and log Samba service status every hour
+0 * * * * systemctl is-active samba-ad-dc >> /var/log/samba-status.log
+
+Verify crontab entries are saved:
+```
+crontab -l
+```
+```
+sudo crontab -l
+```
+
+View cron logs to confirm jobs are running:
+
+```
+grep CRON /var/log/syslog | tail -20
+```
 
 ## UBUNTU CLIENT CONFIGURATION
 
