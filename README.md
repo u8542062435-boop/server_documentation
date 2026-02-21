@@ -501,9 +501,15 @@ From lab13:
 ```
 ping ls14.lab14.lan
 ```
-Test DNS
+Test DNS<br>
+From lab14:
+```
 host ls13.lab13.lan
+```
+From lab13:
+```
 host ls14.lab14.lan
+```
 
 If DNS fails, we must configure BIND or Samba internal DNS.
 
@@ -572,7 +578,7 @@ klist
 
 #### It should show:
 
-Default primary: Administrator@LAB14.LAN
+Default primary: Administrator&#64;LAB14.LAN
 
 ## Create the trust (WITHOUT --admin)
 
