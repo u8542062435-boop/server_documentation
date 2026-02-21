@@ -385,13 +385,14 @@ chmod 2770 /srv/samba/contabilidad
 
 ### Changes on smb.conf
 
-What does your section in smb.conf do?
+What does your section in smb.conf do?<br>
+```
 [Contabilidad]
 
 path = /srv/samba/contabilidad
 read only = no
 valid users = @DL_Share_Contabilidad
-
+```
 [Contabilidad] → the name of the shared resource that clients will see.
 
 path = /srv/samba/contabilidad → the physical folder in Ubuntu.
