@@ -701,4 +701,92 @@ session    required    pam_mkhomedir.so    skel=/etc/skel/    umask=0022
 kill -19 PID
 kill -18 PID
 ```
+# Shared folders on cloud
+
+### Step 1: Create the instances in AWS<br>
+On Amazon Web Services:<br>
+**1.** Launch two EC2 Ubuntu instances.<br>
+One will be the server.
+The other will be the client.<br>
+**2.** Ensure that:<br>
+They are in the same VPC.<br>
+They share the same Security Group or have open rules between them.<br>
+**3.** Note the private IPs.<br>
+IMPORTANT: Open the following in the Security Group:<br>
+TCP/UDP 2049 (NFS)<br>
+TCP/UDP 111 (rpcbind)<br>
+SSH (22)<br>
+### Step 2: Configure the NFS server (server instance)<br>
+Connect to the server via SSH.<br>
+
+**2.1** Install NFS<br>
+```
+sudo apt update
+```
+```
+sudo apt install nfs-kernel-server -y
+```
+**2.2** Create a shared folder<br>
+Example:<br>
+```
+sudo mkdir -p /srv/nfs/shared
+```
+```
+sudo chown nobody:nogroup /srv/nfs/shared
+```
+```
+sudo chmod 777 /srv/nfs/shared
+```
+**2.3** Configure exports<br>
+Edit:<br>
+```
+sudo nano /etc/exports
+```
+Add (replace with the client's private IP address):<br>
+/srv/nfs/shared 10.0.1.25(rw,sync,no_subtree_check)<br>
+Example: If the client's IP address is 172.31.20.50, use that one.<br>
+
+**2.4** Apply configuration<br>
+```
+sudo exportfs -a
+```
+```
+sudo systemctl restart nfs-kernel-server
+```
+```
+sudo exportfs -v
+```
+### Step 3: Configure the client (client instance)<br>
+Connect to the client via SSH.<br>
+
+**3.1** Install NFS client
+```
+sudo apt update
+```
+```
+sudo apt install nfs-common -y
+```
+**3.2** Create mount point<br>
+```
+sudo mkdir -p /mnt/shared
+```
+**3.3** Mount the folder<br>
+Use the server's private IP address:
+```
+sudo mount SERVER_IP:/srv/nfs/shared /mnt/shared
+```
+Example:
+```
+sudo mount 172.31.25.10:/srv/nfs/shared /mnt/shared
+```
+### Step 4: Test
+On the client:
+```
+touch /mnt/shared/test.txt
+```
+Then on the server:
+```
+ls /srv/nfs/shared
+```
+If you see the file → it works.
 
