@@ -287,63 +287,101 @@ sudo samba-tool computer list
 
 
 ### Delete SAMBA AD computer<br>
-`sudo samba-tool computer delete <nombre_del_equipo>`
+```
+sudo samba-tool computer delete <nombre_del_equipo>
+```
 
 
 ### Create a group<br>
-`samba-tool group add <nombre_del_grupo>`
+```
+samba-tool group add <nombre_del_grupo>
+```
 
 
 ### List groups<br>
-`samba-tool group list`
+```
+samba-tool group list
+```
 
 
 ### List group members<br>
-`samba-tool group listmembers 'Domain Admins'`
+```
+samba-tool group listmembers 'Domain Admins'
+```
 
 
 ### Add a member to a group<br>
-`samba-tool group addmembers <nombre_del_grupo> <nombre_del_usuario>`
+```
+samba-tool group addmembers <nombre_del_grupo> <nombre_del_usuario>
+```
 
 
 ### Remove a member from a group<br>
-`samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>`
+```
+samba-tool group removemembers <nombre_del_grupo> <nombre_del_usuario>
+```
 
 ### Create a OU
 
-`samba-tool ou create "OU=NombreOU"`
+```
+samba-tool ou create "OU=NombreOU"
+```
 
 ### Create a user inside the OU
 
-`samba-tool user create George2 --userou="OU=Usuarios"`
+```
+samba-tool user create George2 --userou="OU=Usuarios"
+```
 
 # IMPORTANT<<<<
 
 ##There is a way to do the things right
 
-`samba-tool group add GG_Usuarios`<br>
-`samba-tool group add GG_TI`<br>
-`samba-tool group add DL_Share_Contabilidad`
+```
+samba-tool group add GG_Usuarios
+```
+```
+samba-tool group add GG_TI
+```
+```
+samba-tool group add DL_Share_Contabilidad
+```
 
 ### Move groups to their OU's
 
-`samba-tool group move GG_TI "OU=Grupos"`
+```
+samba-tool group move GG_TI "OU=Grupos"
+```
 
 ### Create the users
 
-`samba-tool user create juan`
-`samba-tool user move juan "OU=Usuarios"`
+```
+samba-tool user create juan
+```
+```
+samba-tool user move juan "OU=Usuarios"
+```
 
 ### Join the users to the groups
 
-`samba-tool group addmembers GG_TI juan`<br>
-`samba-tool group addmembers DL_Share_Contabilidad juan`
+```
+samba-tool group addmembers GG_TI juan
+```
+```
+samba-tool group addmembers DL_Share_Contabilidad juan
+```
 
 ### Share directories
 
-`mkdir -p /srv/samba/contabilidad`<br>
-`chown root:"DL_Share_Contabilidad" /srv/samba/contabilidad`<br>
-`chmod 2770 /srv/samba/contabilidad`
+```
+mkdir -p /srv/samba/contabilidad
+```
+```
+chown root:"DL_Share_Contabilidad" /srv/samba/contabilidad
+```
+```
+chmod 2770 /srv/samba/contabilidad
+```
 
 ### Changes on smb.conf
 
@@ -368,8 +406,12 @@ valid users = @DL_Share_Contabilidad → only users who are members of the DL_Sh
 
 ### Samba respects Linux permissions, so you must also do the following:
 
-`chown root:DL_Share_Accounting /srv/samba/accounting`<br>
-`chmod 2770 /srv/samba/accounting`
+```
+chown root:DL_Share_Accounting /srv/samba/accounting
+```
+```
+chmod 2770 /srv/samba/accounting
+```
 
 chown root:group → the group owner.
 
@@ -387,21 +429,31 @@ chmod 2770 → permissions:
 
 After editing smb.conf:
 
-`systemctl restart smbd`
+```
+systemctl restart smbd
+```
 
 # Share folders (steps)
 
-`sudo mkdir -p /srv/samba/Compartido`
+```
+sudo mkdir -p /srv/samba/Compartido
+```
 
 File System Permissions
 
 ### We'll use a Samba group to control access.
 
-Let's assume the group is called DL_Compartido:
-
-`sudo groupadd DL_Compartido # if it doesn't exist`<br>
-`sudo chown root:DL_Compartido /srv/samba/Compartido`<br>
-`sudo chmod 2770 /srv/samba/Compartido`
+Let's assume the group is called DL_Compartido:<br>
+if it doesn't exist
+```
+sudo groupadd DL_Compartido
+```
+```
+sudo chown root:DL_Compartido /srv/samba/Compartido
+```
+```
+sudo chmod 2770 /srv/samba/Compartido
+```
 
 2770 → owner and group can read/write, others cannot.
 
@@ -411,25 +463,33 @@ Let's assume the group is called DL_Compartido:
 
 Edit /etc/samba/smb.conf and add the following to the end:
 
-`[Compartido]
+```
+[Compartido]
 path = /srv/samba/Compartido
 read only = no
-valid users = @DL_Compartido`
+valid users = @DL_Compartido
+```
 
 @DL_Compartido → all members of the group have access.
 
 ## Then Samba reload:
 
-`sudo systemctl restart smbd`
+```
+sudo systemctl restart smbd
+```
 
 # Trust
 Be sure both servers were created with:
 
-`samba-tool domain provision`
+```
+samba-tool domain provision
+```
 
 You can check that with:
 
-`samba -V`
+```
+samba -V
+```
 
 Test network
 ping ls13.lab13.lan
@@ -451,13 +511,21 @@ search lab14.lan
 
 # Create a trust
 
-`samba-tool domain trust create lab13.lan --type=external --direction=both -U"LAB13\Administrator"`
+```
+samba-tool domain trust create lab13.lan --type=external --direction=both -U"LAB13\Administrator"
+```
 
 ## Verify the trust with:
 
-`samba-tool domain trust list`<br>
-`wbinfo -m`<br>
-`wbinfo -n LAB13\\Administrator`
+```
+samba-tool domain trust list
+```
+```
+wbinfo -m
+```
+```
+wbinfo -n LAB13\\Administrator
+```
 
 ### Most common problems
 
@@ -481,7 +549,9 @@ search lab14.lan
 
 
 
-`kdestroy`<br>
+```
+kdestroy
+```
 `kinit Administrator@LAB14.LAN`
 
 Enter the password for LAB14.
