@@ -492,10 +492,15 @@ You can check that with:
 samba -V
 ```
 
-Test network
+Test network<br>
+From lab14:
+```
 ping ls13.lab13.lan
+```
+From lab13:
+```
 ping ls14.lab14.lan
-
+```
 Test DNS
 host ls13.lab13.lan
 host ls14.lab14.lan
