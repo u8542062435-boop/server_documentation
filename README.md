@@ -552,13 +552,17 @@ wbinfo -n LAB13\\Administrator
 ```
 kdestroy
 ```
-`kinit Administrator@LAB14.LAN`
+```
+kinit Administrator@LAB14.LAN
+```
 
 Enter the password for LAB14.
 
 Check:
 
-`klist`
+```
+klist
+```
 
 #### It should show:
 
@@ -568,17 +572,17 @@ Default primary: Administrator@LAB14.LAN
 
 Now run the following command exactly:
 
-`samba-tool domain trust create lab14.lan
-
---type=external
-
---direction=both`
+```
+samba-tool domain trust create lab14.lan --type=external --direction=both
+```
 
 ### Samba will use the active Kerberos ticket
 
 Note <<<<<<
 If it fails: Quick Kerberos test:<br>
-`kvno cifs/ls14.lab14.lan`
+```
+kvno cifs/ls14.lab14.lan
+```
 
 If it returns a number → Kerberos OK.
 
@@ -593,39 +597,57 @@ Trust created successfully
 # Make-your-Ubuntu-Server-a-functional-router
 
 ### Modify file *unmute line net.ipv4.ip.forward=1*
-`sudo nano /etc/sysctl.conf`
+```
+sudo nano /etc/sysctl.conf
+```
 
 ### Apply modication
-`sudo sysctl -p /etc/sysctl.conf`
+```
+sudo sysctl -p /etc/sysctl.conf
+```
 
 ### Test
-`sudo cat /proc/sys/net/ipv4/ip_forward`
+```
+sudo cat /proc/sys/net/ipv4/ip_forward
+```
 
 ### Test iptables<br>
-`sudo iptables -L`<br>
+```
+sudo iptables -L
+```
 
 *Note: If there is no Input, Output or Fordward then execute*<br>
 
-`sudo iptables -P FORWARD ACCEPT`
+```
+sudo iptables -P FORWARD ACCEPT
+```
 
 ### Enrouting
-`sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE`
+```
+sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+```
 
 
 ## UBUNTU CLIENT CONFIGURATION
 
 
 ### Change hostname<br>
-`sudo hostnamectl set-hostname LSC14`<br>
-`hostname -f`
+```
+sudo hostnamectl set-hostname LSC14
+```
+```
+hostname -f
+```
 
 
 ### Configure the /etc/hosts file<br>
-`sudo nano /etc/hosts`
-
-172.30.20.55     lab14.lan lab14<br>
-172.30.20.55     ls14.lab14.lan ls14<br>
-
+```
+sudo nano /etc/hosts
+```
+```
+172.30.20.55     lab14.lan lab14
+172.30.20.55     ls14.lab14.lan ls14
+```
 <p align="center">
   <img src="Images/11.hosts.jpg" width="500">
 </p>
@@ -635,17 +657,27 @@ Trust created successfully
 </p>
 
 ### Check connectivity<br>
-`ping -c2 lab14.lan`
+```
+ping -c2 lab14.lan
+```
 
 
 ### Install NTPDATE<br>
-`sudo apt-get install ntpdate`<br>
-`sudo ntpdate -q lab14.lan`<br>
-`sudo ntpdate lab14.lan`<br>
+```
+sudo apt-get install ntpdate
+```
+```
+sudo ntpdate -q lab14.lan
+```
+```
+sudo ntpdate lab14.lan
+```
 
 
 ### Install required packages<br>
-`sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind`<br>
+```
+sudo apt-get install samba krb5-config krb5-user winbind libpam-winbind libnss-winbind
+```
 
 LAB14.LAN<br>
 ls14.lab14.lan<br>
@@ -653,39 +685,47 @@ ls14.lab14.lan<br>
 
 
 ### Verify authentication on the Kerberos server using the user administrator<br>
-`kinit administrator@LAB14.LAN`<br>
-`klist`<br>
+```
+kinit administrator@LAB14.LAN
+```
+```
+klist
+```
 
 
 ### Move smb.conf file and create a backup<br>
-`mv /etc/samba/smb.conf /etc/samba/smb.conf.initial`
+```
+mv /etc/samba/smb.conf /etc/samba/smb.conf.initial
+```
 
 
 ### Create an empty smb.conf file<br>
-`nano /etc/samba/smb.conf`
+```
+nano /etc/samba/smb.conf
+```
+```
+[global]
+        workgroup = LAB14
+        realm = LAB14.LAN
+        netbios name = LSC14
+        security = ADS
+        dns forwarder = 172.30.20.55
 
-[global]<br>
-        workgroup = LAB14<br>
-        realm = LAB14.LAN<br>
-        netbios name = LSC14<br>
-        security = ADS<br>
-        dns forwarder = 172.30.20.55<br>
+idmap config * : backend = tdb
+idmap config *:range = 50000-1000000
 
-idmap config * : backend = tdb<br>
-idmap config *:range = 50000-1000000<br>
+   template homedir = /home/%D/%U
+   template shell = /bin/bash
+   winbind use default domain = true
+   winbind offline logon = false
+   winbind nss info = rfc2307
+   winbind enum users = yes
+   winbind enum groups = yes
 
-   template homedir = /home/%D/%U<br>
-   template shell = /bin/bash<br>
-   winbind use default domain = true<br>
-   winbind offline logon = false<br>
-   winbind nss info = rfc2307<br>
-   winbind enum users = yes<br>
-   winbind enum groups = yes<br>
-
-  vfs objects = acl_xattr<br>
-  map acl inherit = Yes<br>
-  store dos attributes = Yes<br>
-
+  vfs objects = acl_xattr
+  map acl inherit = Yes
+  store dos attributes = Yes
+```
 <p align="center">
   <img src="Images/9.smb_conf.jpg" width="500">
 </p>
@@ -695,35 +735,46 @@ idmap config *:range = 50000-1000000<br>
 </p>
 
 ### Restart all Samba daemons<br>
-`sudo systemctl restart smbd nmbd`
-
+```
+sudo systemctl restart smbd nmbd
+```
 
 ### Stop unnecessary services<br>
-`sudo systemctl stop samba-ad-dc`
+```
+sudo systemctl stop samba-ad-dc
+```
 
 
 ### Enable Samba services<br>
-`sudo systemctl enable smbd nmbd`
+```
+sudo systemctl enable smbd nmbd
+```
 
 
 ### Join Ubuntu Desktop to SAMBA AD DC<br>
-`sudo net ads join -U administrator`
+```
+sudo net ads join -U administrator
+```
 
 
 ### List SAMBA AD computers<br>
-`sudo samba-tool computer list`
+```
+sudo samba-tool computer list
+```
 
 
 ## CONFIGURE AD ACCOUNT AUTHENTICATION<br>
 
 ### Edit the Name Service Switch (NSS) configuration file<br>
-`sudo nano /etc/nsswitch.conf`
-
+```
+sudo nano /etc/nsswitch.conf
+```
+```
 passwd:       compat winbind<br>
 group:        compat winbind<br>
 shadow:       compat winbind<br>
 hosts:        files dns<br>
-
+```
 <p align="center">
   <img src="Images/10.nsswitch_conf.png" width="500">
 </p>
@@ -733,7 +784,9 @@ hosts:        files dns<br>
 </p>
 
 ### Restart the Winbind service<br>
-`sudo systemctl restart winbind`
+```
+sudo systemctl restart winbind
+```
 
 ### Check if Ubuntu Desktop was integrated into the domain<br>
 ```
