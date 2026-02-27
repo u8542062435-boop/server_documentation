@@ -1080,7 +1080,7 @@ sudo apt install nfs-common -y
 sudo mkdir -p /mnt/shared
 ```
 Permisions:
-**root@bespin14:/city/trap# setfacl -m u:lando:rwx /city/trap**
+**root@bespin14:/city/trap# setfacl -m u:lando:rwx /city/trap**<br>
 **3.3** Mount the folder<br>
 Use the server's private IP address:
 ```
