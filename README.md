@@ -1079,6 +1079,8 @@ sudo apt install nfs-common -y
 ```
 sudo mkdir -p /mnt/shared
 ```
+Permisions:
+**root@bespin14:/city/trap# setfacl -m u:lando:rwx /city/trap**
 **3.3** Mount the folder<br>
 Use the server's private IP address:
 ```
@@ -1098,6 +1100,8 @@ Then on the server:
 ls /srv/nfs/shared
 ```
 If you see the file → it works.
+#### Command to close connection:
+**PS C:\Windows\system32> net use * /delete**
 
 ## Very common problems in AWS
 
